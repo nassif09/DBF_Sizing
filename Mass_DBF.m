@@ -9,7 +9,7 @@ Mass.MTOM = MTOM;   %kg
 
 Mass.EW_fract      = .44;  %assumption
 
-Mass.payload_frac      = .45;  %assumption
+Mass.payload_frac      = .44;  %assumption
 
 Mass.batt_fraction     = 1 - Mass.EW_fract - Mass.payload_frac;
 

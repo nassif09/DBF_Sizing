@@ -24,11 +24,11 @@ Geometry.mac_wing            = (2/3)*(Geometry.c_root+Geometry.c_tip ...
 % x_wingroot_TE               = Geometry.c_root;
 
 % Fuselage assumptions
-Geometry.max_fuse_width      = 6.5*.0254;        %in to m
+Geometry.max_fuse_width      =(2 + .5 + 2*Input_parameters.n_passenger_per_row)*.0254;        %in to m
 Geometry.max_fuse_height     = 5*.0254; %in to m
-n = Input_parameters.n_rows_passengers;
-Geometry.l_cone                  = 6*.0254; %in to m
-Geometry.l_fuselage_tube         = (2.5*(n-1)+(2*n))*.0254;  %in to m
+n = Input_parameters.n_rows;
+Geometry.l_cone                  = 4.5*.0254; %in to m
+Geometry.l_fuselage_tube         = (0.25*(n-1)+(2*n) + .5)*.0254;  %in to m
 Geometry.l_boom                  = 6*.0254; %in to m
 Geometry.l_fuselage = Geometry.l_fuselage_tube + Geometry.l_boom + Geometry.l_cone;  %in to m
  

@@ -11,10 +11,11 @@ MTOM=MTOM0;
 Energy_required(MTOM,Input_parameters, Geometry, v_vector_ms, h_vector_m,W_S)   %kWh
 
 Eavailable = Energy_available(MTOM,Input_parameters, Geometry, v_vector_ms, h_vector_m)
-dEnergy = @(MTOM) Energy_required(MTOM,Input_parameters, Geometry, v_vector_ms, h_vector_m,W_S) -  Energy_available(MTOM,Input_parameters, Geometry, v_vector_ms, h_vector_m);
+dEnergy = @(MTOM) Energy_required(MTOM,Input_parameters, Geometry, v_vector_ms, h_vector_m,W_S) -  .95*Energy_available(MTOM,Input_parameters, Geometry, v_vector_ms, h_vector_m);
 options = optimset('Display','iter','TolX',0.0005);
 
 MTOM = fzero(dEnergy, MTOM0, options);
-MTOM*2.2;
+disp('The converged value in lbs is ')
+MTOM*2.2
 [Geometry]=DBF_Geometry_Generation(Input_parameters,Geometry,MTOM,W_S,'plotOff');
 

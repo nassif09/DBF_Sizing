@@ -30,6 +30,6 @@ E_cruise = Pcruise*t_cruise;
 %% Climb
 t_climb = Input_parameters.h_cruise_AGL/Input_parameters.ROC_at_best_LD_ms;
 E_climb = P_ROC_kW*t_climb;
-%Take off + 1 climb + 3*3turns (3laps)xwxw
-Energy_required = (E_takeoff + (E_turn1 + E_turn2 + E_turn3 + E_cruise)*8 + E_climb)*0.2777778;  %kWs to Wh
+%Take off + 1 climb + 3*3turns (10laps)
+Energy_required = (E_takeoff + (E_turn1 + E_turn2 + E_turn3 + E_cruise)*10 + E_climb)*0.2777778;  %kWs to Wh
 

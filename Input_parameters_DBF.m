@@ -39,7 +39,8 @@ Input_parameters.K_Cdi              = 1.0; %
 % Input_parameters.Wavionics                  = (.75)/2.2;       %kg FMP=15.7 lbs, TNAV = 2.5 lbs
 Input_parameters.Motor_Sp_Pwr               = 2.6;    % Kw/kg from Neu 1110G motors
 
-Input_parameters.n_rows_passengers  =    2;
+Input_parameters.n_rows                     =    4;
+Input_parameters.n_passenger_per_row        =    1;
 Input_parameters.max_takeoff_distance  = 100*.3048;   %100ft to m
 Input_parameters.nmax                   = 4;
 
