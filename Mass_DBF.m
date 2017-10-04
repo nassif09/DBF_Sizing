@@ -7,13 +7,14 @@ Mass.MTOM = MTOM;   %kg
 % q_cruise                = .5*rho*(V_cruise_ms).^2; %kg/(m.s^2) or Pa
 
 
-Mass.EW_fract      = .44;  %assumption
-
+Mass.EW_fract      = .50;  %assumption
+Mass.payload       = 10*0.0283495;      %oz to kg
 Mass.payload_frac      = .44;  %assumption
 
-Mass.batt_fraction     = 1 - Mass.EW_fract - Mass.payload_frac;
+Mass.remaining_fraction     = 1 - Mass.EW_fract;
+Mass.remaining              = Mass.remaining_fraction*MTOM;
+Mass.Mbatteries             = Mass.remaining - Mass.payload;
 
-Mass.Mbatteries = Mass.batt_fraction*MTOM;
 
 
 Energy_available = Mass.Mbatteries * Input_parameters.Batt_Sp_E * Input_parameters.depthOfDischarge*1000;

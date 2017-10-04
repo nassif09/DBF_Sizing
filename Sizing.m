@@ -18,4 +18,5 @@ MTOM = fzero(dEnergy, MTOM0, options);
 disp('The converged value in lbs is ')
 MTOM*2.2
 [Geometry]=DBF_Geometry_Generation(Input_parameters,Geometry,MTOM,W_S,'plotOff');
+Energy_available(MTOM,Input_parameters, Geometry, v_vector_ms, h_vector_m);
 

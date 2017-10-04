@@ -19,7 +19,7 @@ Input_parameters.Powertrain_losses = Input_parameters.eta_motor * Input_paramete
 
 
 %wing aerodynamic assumptions
-Input_parameters.Percent_lam_flow   = .4; %assuming 40% laminar flow and 60%turbulent flow
+Input_parameters.Percent_lam_flow   = .1; %assuming 40% laminar flow and 60%turbulent flow
 
 %tail data
 Input_parameters.V_TVC              = 0.04;  %assumptiOn from Raymer t6.4 
