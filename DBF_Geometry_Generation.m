@@ -1,4 +1,4 @@
-function [Geometry] = DBF_Geometry_Generation(Input_parameters,Geometry,MTOM,W_S,plotOption);
+function [Geometry] = DBF_Geometry_Generation(Input_parameters,Geometry,MTOM,W_S,plotOption,flag);
 
 
 Geometry.AR  = Input_parameters.AR;   
@@ -95,4 +95,8 @@ Geometry.fineness_ratio_fuse = (2 * Geometry.l_fuselage) / (Geometry.max_fuse_wi
 %     axis equal
 %     hold off
 % end
+if flag==1
+    flag=1;
+end
+
  end

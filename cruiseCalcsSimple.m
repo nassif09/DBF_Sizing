@@ -1,4 +1,4 @@
-function [Pcruise, Tcruise] = cruiseCalcsSimple(MTOM,Input_parameters, LD_cruise, VbestLD_ms,Geometry)
+function [Pcruise, Tcruise] = cruiseCalcsSimple(MTOM,Input_parameters, LD_cruise, VbestLD_ms,Geometry,flag)
 %CRUISECALCSSIMPLE Summary of this function goes here
 %   Detailed explanation goes here
 
@@ -11,6 +11,8 @@ function [Pcruise, Tcruise] = cruiseCalcsSimple(MTOM,Input_parameters, LD_cruise
     Pcruise = (1/1000)*(Tcruise*Input_parameters.Vcruise_ms) / Input_parameters.eta_prop;% kW, @ prop shaft
     
     
-    
+if flag==1
+    flag=1;
+end
 end
 

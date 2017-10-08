@@ -1,4 +1,4 @@
-function [Cd0_2D,varargout] = DBF_Cd_0(Input_parameters, v_vector_ms, h_vector_m, Geometry, plotOption,varargin)
+function [Cd0_2D,varargout] = DBF_Cd_0(Input_parameters, v_vector_ms, h_vector_m, Geometry, plotOption,flag,varargin)
 
 
 v_ms = v_vector_ms;
@@ -74,7 +74,7 @@ Cd0_cooling_2D                  = Cd0_misc_2D * .03/k_misc;
 %--------------------------------------------------------------------------
 Cd0_2D                  = Input_parameters.K_Cd0 * (Cd_friction_2D + Cd0_leakage_protuberances_2D + Cd0_cooling_2D);
 
-if nargin == 6 % execute if this function was passed a cruise speed
+if nargin == 7 % execute if this function was passed a cruise speed
     
     VbestLD_ms = varargin{1};
     h_cruise_index = find(h_vector_m == Input_parameters.h_cruise_abs);
@@ -92,4 +92,9 @@ if nargin == 6 % execute if this function was passed a cruise speed
 
     varargout{1} = Cd0_at_cruise;
     varargout{2} = Cd0_components_at_cruise; %
+end
+
+if flag==1
+    flag=1;
+end
 end

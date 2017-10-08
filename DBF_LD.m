@@ -1,4 +1,4 @@
- function [LD_vector, LD_cruise, LDmax, VbestLD_ms, VbestCL32CD_ms, CLbestLD, Vstall_ms, D_vector, D_2D,CL32CDmax] = DBF_LD(Geometry,MTOM,Input_parameters, h_vector_m, v_vector_ms, Cd0_2D, plotOption)
+ function [LD_vector, LD_cruise, LDmax, VbestLD_ms, VbestCL32CD_ms, CLbestLD, Vstall_ms, D_vector, D_2D,CL32CDmax] = DBF_LD(Geometry,MTOM,Input_parameters, h_vector_m, v_vector_ms, Cd0_2D, plotOption,flag)
 
 % This function finds LD for cruise and loiter, as well as all other
 % relevant aerodynamic parameters sued in the performance calculations
@@ -118,7 +118,9 @@ LD_cruise = LDmax;
 %     legend('Parasite drag','Induced drag')
 %     hold off
 % end
-
+if flag==1
+    flag=1;
+end
 end
 
 
