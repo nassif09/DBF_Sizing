@@ -1,4 +1,5 @@
 plotOption  = 'plotOff';
+flag = 1;
 [Geometry]              = DBF_Geometry_Generation(Input_parameters,Geometry,MTOM,W_S, plotOption,flag);
 
 %Find parasite drag over the whole 2D spectrum
