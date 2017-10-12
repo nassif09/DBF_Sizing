@@ -71,7 +71,7 @@ Geometry.Swet_Htail     = Geometry.Sht * 2;
 Geometry.Swet_Vtail     = Geometry.Svt * 2;
 Geometry.Swet_total = Geometry.Swet_Fuselage +Geometry.Swet_Wing + Geometry.Swet_Vtail +Geometry.Swet_Htail;
 %Wing and emepennage assumptions
-Geometry.tc_wing    = 0.18;
+Geometry.tc_wing    = 0.15;
 Geometry.tc_tail    = 0.12;
 Geometry.fineness_ratio_fuse = (2 * Geometry.l_fuselage) / (Geometry.max_fuse_width + Geometry.max_fuse_height);
 

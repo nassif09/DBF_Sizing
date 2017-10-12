@@ -5,7 +5,7 @@ Input_parameters.h_cruise_abs       = 405;              %1330ft
 Input_parameters.h_cruise_AGL       = (1340-1300)*.3048;   
 
 
-Input_parameters.ROC_at_best_LD_ms  = 75*.00508;  % ft/min converted to m/s - Assumption
+Input_parameters.ROC_at_best_LD_ms  = 80*.00508;  % ft/min converted to m/s - Assumption
 %Propulsion system parameters
 Input_parameters.eta_prop           = .75;      %-
 Input_parameters.eta_motor          = .87;      
@@ -44,9 +44,9 @@ Input_parameters.n_passenger_per_row        =    1;
 Input_parameters.max_takeoff_distance  = 100*.3048;   %100ft to m
 Input_parameters.nmax                   = 4;
 
-Input_parameters.AR                 = 7;
+Input_parameters.AR                 = 5;
 % BATTERY STUFF 
-Input_parameters.Batt_Sp_E          = .100; %kWhr/kg %NiMH
+Input_parameters.Batt_Sp_E          = .075; %kWhr/kg %NiMH
 
 Input_parameters.depthOfDischarge   = .9; 
 
