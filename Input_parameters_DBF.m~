@@ -41,7 +41,6 @@ Input_parameters.Motor_Sp_Pwr               = 2.6;    % Kw/kg from Neu 1110G mot
 
 Input_parameters.n_rows                     =    4;
 Input_parameters.n_passenger_per_row        =    1;
-Input_parameters.n_passenger                = Input_parameters.n_passenger_per_row*Input_parameters.n_rows;
 Input_parameters.max_takeoff_distance  = 100*.3048;   %100ft to m
 Input_parameters.nmax                   = 2;
 

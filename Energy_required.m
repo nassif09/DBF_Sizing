@@ -22,7 +22,7 @@ flag=0;
 
 
 
-[Erequired,~]   = DBF_Phases(Input_parameters,CLbestLD, Vstall_ms,MTOM,VbestLD_ms,LD_cruise,W_S,P_ROC_kW,Pcruise,flag);
+[Erequired,~]   = DBF_Phases(Input_parameters,CLbestLD,Vstall_ms,MTOM,VbestLD_ms,LD_cruise,W_S,P_ROC_kW,Pcruise,flag);
 
 
 end

@@ -1,4 +1,4 @@
- function [Geometry] = DBF_Geometry_Generation(Input_parameters,Geometry,MTOM,W_S,plotOption,flag);
+function [Geometry] = DBF_Geometry_Generation(Input_parameters,Geometry,MTOM,W_S,plotOption,flag);
 
 
 Geometry.AR  = Input_parameters.AR;   
@@ -114,7 +114,7 @@ if flag==1
         -(y_cylinder_boomback),-(y_cylinder_boomback),-y_fuselage_cuboidback,-y_fuselage_conebase,0],'r')
     plot([x_htail_LE,x_htail_LE,x_htail_TE,x_htail_TE,x_htail_LE,x_htail_LE],...
         [0,y_htail_LE,y_htail_TE,-y_htail_TE,-y_htail_LE,0],'k')
-    axis equal
+    
     grid on
 hold off
 end

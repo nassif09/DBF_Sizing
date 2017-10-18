@@ -45,10 +45,8 @@ E_climb = P_ROC_kW*t_climb*1000;
 output_data.E_climb = E_climb*0.0002777778;  %Ws -> Wh
 output_data.lap_takeoff   = t_turn1+t_turn2+t_turn3+t_climb+t_cruise+t_takeoff;
 output_data.full_lap   = t_turn1+t_turn2+t_turn3+t_cruise;
-output_data.M2_score_num = Input_parameters.n_passenger /(output_data.full_lap*2 + output_data.lap_takeoff);
-no_of_laps_completed = floor((600-output_data.lap_takeoff - t_climb)/(output_data.full_lap));
-output_data.no_of_laps = no_of_laps_completed;
-output_data.M3_score_num = Input_parameters.n_passenger/2 * 5 * no_of_laps_completed;
+output_data.M2_score_num = Input_parameters.n_passenger * 2 /(output_data.full_lap*2 + output_data.lap_takeoff)
+output_data.M3_score_num = 4*Input_parameters.n_passenger/2 * 5
 %Take off + 1 climb + 3*3turns (10laps)
 Energy_required = (E_takeoff + (E_turn1 + E_turn2 + E_turn3 + E_cruise)*10 + E_climb)*0.0002777778;  %Ws to Wh
 if flag==1

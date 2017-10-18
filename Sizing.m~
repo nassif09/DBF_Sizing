@@ -2,8 +2,7 @@
 clear,close all,
 Input_parameters_DBF
 
-%if type=1 then you can run parametric design
-%if type=2 then run point design
+%if type 1 then you can run parametric design
 
 type = 1;
 if type ==1
@@ -34,11 +33,7 @@ for AR_index = 1:length(AR)
     output_data.nothing = 0;
     %Eavailable = Energy_available(MTOM,Input_parameters, Geometry, v_vector_ms, h_vector_m,output_data);
     dEnergy = @(MTOM) Energy_required(MTOM,Input_parameters, Geometry, v_vector_ms, h_vector_m,W_S) -  .90*Energy_available(MTOM,Input_parameters, Geometry, v_vector_ms, h_vector_m,output_data);
-    if type==1
-        options = optimset('Display','off','TolX',0.0005);
-    else 
-        options = optimset('Display','iter','TolX',0.0005);
-    end
+    options = optimset('Display','iter','TolX',0.0005);
     MTOM = fzero(dEnergy, MTOM0, options);
 %disp('The converged value in lbs is ')
 %MTOM*2.2
