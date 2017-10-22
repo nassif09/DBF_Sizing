@@ -5,14 +5,14 @@ Input_parameters_DBF
 %if type=1 then you can run parametric design
 %if type=2 then run point design
 
-type = 1;
+type = 2;
 if type ==1
 AR = [3:.5:7];
 W_S_E = [2:.2:4];    %lbf/ft^2
 
 else
-    AR = [5];
-    W_S_E = [3];
+    AR = [4];
+    W_S_E = [3.6];
 end
 W_S_M = W_S_E*47.88;    
 v_vector_ms = 20:22;   %velocity range m/s;

@@ -29,7 +29,7 @@ Geometry.max_fuse_height     = 5*.0254; %in to m
 n = Input_parameters.n_rows;
 Geometry.l_cone                  = 4.5*.0254; %in to m
 Geometry.l_fuselage_tube         = (0.25*(n-1)+(2*n) + .5)*.0254;  %in to m
-Geometry.l_boom                  = 10*.0254; %in to m
+Geometry.l_boom                  = 24*.0254; %in to m
 Geometry.l_fuselage = Geometry.l_fuselage_tube + Geometry.l_boom + Geometry.l_cone;  %in to m
  
 
