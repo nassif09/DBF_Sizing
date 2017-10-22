@@ -7,7 +7,7 @@ Mass.MTOM = MTOM;   %kg
 % q_cruise                = .5*rho*(V_cruise_ms).^2; %kg/(m.s^2) or Pa
 
 
-Mass.EW_fract      = .65; %assumption
+Mass.EW_fract      = .70; %assumption
 Mass.payload       = 10*0.0283495;      %oz to kg
 Mass.payload_frac      = Mass.payload/MTOM;  %assumption
 
