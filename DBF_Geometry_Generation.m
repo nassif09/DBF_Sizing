@@ -1,4 +1,4 @@
-function [Geometry] = DBF_Geometry_Generation(Input_parameters,Geometry,MTOM,W_S,plotOption,flag);
+ function [Geometry] = DBF_Geometry_Generation(Input_parameters,Geometry,MTOM,W_S,plotOption,flag);
 
 
 Geometry.AR  = Input_parameters.AR;   
@@ -18,10 +18,10 @@ Geometry.mac_wing            = (2/3)*(Geometry.c_root+Geometry.c_tip ...
 
 
 %wing coordinates
-% x_wingroot_LE               = 0;
-% x_wingtip_LE                =(Geometry.c_root - Geometry.c_tip)/2;
-% x_wingtip_TE                = x_wingtip_LE + Geometry.c_tip;
-% x_wingroot_TE               = Geometry.c_root;
+ x_wingroot_LE               = 0;
+ x_wingtip_LE                =0;
+ x_wingtip_TE                = x_wingtip_LE + Geometry.c_tip;
+ x_wingroot_TE               = Geometry.c_root;
 
 % Fuselage assumptions
 Geometry.max_fuse_width      =(2 + .5 + 2*Input_parameters.n_passenger_per_row)*.0254;        %in to m
@@ -29,7 +29,7 @@ Geometry.max_fuse_height     = 5*.0254; %in to m
 n = Input_parameters.n_rows;
 Geometry.l_cone                  = 4.5*.0254; %in to m
 Geometry.l_fuselage_tube         = (0.25*(n-1)+(2*n) + .5)*.0254;  %in to m
-Geometry.l_boom                  = 6*.0254; %in to m
+Geometry.l_boom                  = 10*.0254; %in to m
 Geometry.l_fuselage = Geometry.l_fuselage_tube + Geometry.l_boom + Geometry.l_cone;  %in to m
  
 
@@ -45,14 +45,22 @@ Geometry.htailspan           = sqrt(Geometry.Sht * Geometry.htail_AR);
 Geometry.c_ht                = Geometry.Sht / Geometry.htailspan;
 %co ordinates
 %fuselage co ordinates:
-% x_fuselage_tip               = (x_wingroot_TE/2 - Input_parameters.aeroshell_dia/2);
-% x_fuselage_conebase          = x_fuselage_tip+.2*Input_parameters.aeroshell_dia;
-% x_fuselage_cuboidbase        = x_fuselage_conebase + .5*Input_parameters.aeroshell_dia;
+x_fuselage_tip               = (x_wingroot_LE-Geometry.l_cone);
+x_fuselage_conebase          = x_wingroot_LE;
+y_fuselage_conebase          = Geometry.max_fuse_width/2;
+ x_fuselage_cuboidfront      = x_fuselage_conebase ;
+ y_fuselage_cuboidfront      = y_fuselage_conebase;
+ x_fuselage_cuboidback       = x_fuselage_cuboidfront + Geometry.l_fuselage_tube;
+ y_fuselage_cuboidback       = y_fuselage_cuboidfront;
+ x_cylinder_boomfront        = x_fuselage_cuboidback;
+ y_cylinder_boomfront        = .03/2;
+ x_cylinder_boomback        =  x_fuselage_cuboidback+Geometry.l_boom;
+ y_cylinder_boomback        = .03/2;
 % x_cylinder_cylinderbase      = x_wingroot_TE - .25*Geometry.c_root + Geometry.l_tail - .25*Geometry.c_ht;
-% x_htail_LE                   = x_cylinder_cylinderbase;
-% y_htail_LE                   = Geometry.htailspan /2;
-% x_htail_TE                   = x_htail_LE + Geometry.c_ht;
-% y_htail_TE                   = y_htail_LE;
+ x_htail_LE                   = x_cylinder_boomback;
+ y_htail_LE                   = Geometry.htailspan /2;
+ x_htail_TE                   = x_htail_LE + Geometry.c_ht;
+ y_htail_TE                   = y_htail_LE;
 
 %vtail
 Geometry.Svt                 = Input_parameters.V_TVC * Geometry.wingspan * Geometry.Swing / Geometry.l_tail;
@@ -62,7 +70,7 @@ Geometry.c_vt                = Geometry.Svt / Geometry.vtailspan;
 
 % Wetted areas 
 Geometry.Swet_Fuselage       = pi * (Geometry.max_fuse_width/2) * (sqrt((Geometry.max_fuse_width*.5)^2 + (Geometry.l_cone*.0254)^2)) +...
-    2*pi*(Geometry.max_fuse_width/2) * (Geometry.l_fuselage_tube) + 2*pi*.15*Geometry.l_boom;  
+    2*pi*(Geometry.max_fuse_width/2) * (Geometry.l_fuselage_tube) + 2*pi*.03*Geometry.l_boom;  
 %assuming three parts = cone(.2*fuse _l) + cuboid(.65*fuse _ l) +
 %tube(.55)
 %* fuse _l)
@@ -72,7 +80,7 @@ Geometry.Swet_Vtail     = Geometry.Svt * 2;
 Geometry.Swet_total = Geometry.Swet_Fuselage +Geometry.Swet_Wing + Geometry.Swet_Vtail +Geometry.Swet_Htail;
 %Wing and emepennage assumptions
 Geometry.tc_wing    = 0.15;
-Geometry.tc_tail    = 0.12;
+Geometry.tc_tail    = 0.10;
 Geometry.fineness_ratio_fuse = (2 * Geometry.l_fuselage) / (Geometry.max_fuse_width + Geometry.max_fuse_height);
 
 
@@ -97,6 +105,18 @@ Geometry.fineness_ratio_fuse = (2 * Geometry.l_fuselage) / (Geometry.max_fuse_wi
 % end
 if flag==1
     flag=1;
+    figure(1)
+    plot([x_wingroot_LE,x_wingtip_LE,x_wingtip_TE,x_wingroot_TE,x_wingtip_LE,x_wingroot_LE],[0,Geometry.wingspan/2,Geometry.wingspan/2,-Geometry.wingspan/2,-Geometry.wingspan/2,0],'b')
+    hold on
+    plot([x_fuselage_tip,x_fuselage_conebase,x_fuselage_cuboidback,x_cylinder_boomfront,x_cylinder_boomback,...
+        x_cylinder_boomback,x_cylinder_boomfront,x_fuselage_cuboidback,x_fuselage_conebase,x_fuselage_tip],...
+        [0,y_fuselage_conebase,y_fuselage_cuboidback,y_cylinder_boomback,y_cylinder_boomback,...
+        -(y_cylinder_boomback),-(y_cylinder_boomback),-y_fuselage_cuboidback,-y_fuselage_conebase,0],'r')
+    plot([x_htail_LE,x_htail_LE,x_htail_TE,x_htail_TE,x_htail_LE,x_htail_LE],...
+        [0,y_htail_LE,y_htail_TE,-y_htail_TE,-y_htail_LE,0],'k')
+    axis equal
+    grid on
+hold off
 end
 
  end

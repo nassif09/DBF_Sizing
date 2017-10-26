@@ -1,5 +1,4 @@
 plotOption  = 'plotOff';
-flag = 1;
 [Geometry]              = DBF_Geometry_Generation(Input_parameters,Geometry,MTOM,W_S, plotOption,flag);
 
 %Find parasite drag over the whole 2D spectrum
@@ -18,6 +17,6 @@ flag = 1;
 % find ROC power to find the cruise motor weight; compare to max speed power
 [P_ROC_kW]         = ClimbPower(MTOM,Input_parameters, v_vector_ms, VbestLD_ms, D_vector,flag); % @ prop shaft, includes eta_prop
 
-[Erequired,output_data]   = DBF_Phases(Input_parameters,CLbestLD, Vstall_ms,MTOM,VbestLD_ms,LD_cruise,W_S,P_ROC_kW,Pcruise,flag)
+[Erequired,output_data]   = DBF_Phases(Input_parameters,CLbestLD, Vstall_ms,MTOM,VbestLD_ms,LD_cruise,W_S,P_ROC_kW,Pcruise,flag);
 [Mass,output_data,Eavailable] = Mass_DBF(Input_parameters, Geometry, MTOM,output_data,flag);
 output_data.LD_cruise = LD_cruise;
