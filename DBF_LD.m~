@@ -1,0 +1,126 @@
+ function [LD_vector, LD_cruise, LDmax, VbestLD_ms, VbestCL32CD_ms, CLbestLD, Vstall_ms, D_vector, D_2D,CL32CDmax] = DBF_LD(Geometry,MTOM,Input_parameters, h_vector_m, v_vector_ms, Cd0_2D, plotOption,flag)
+
+% This function finds LD for cruise and loiter, as well as all other
+% relevant aerodynamic parameters sued in the performance calculations
+
+% v_vector_ms  = v_vector_kph/3.6;
+[rho_vector,~,~,~,nu_vector,~] = stdatmo(h_vector_m);
+%find index position of the specified cruise altitude
+h_cruise_index = find (Input_parameters.h_cruise_abs == h_vector_m);
+
+%make 2D arrays that cover all v,h combinations
+v_ms_2D = repmat(v_vector_ms,length(h_vector_m),1);
+rho_2D  = repmat(rho_vector',1,length(v_vector_ms));
+
+%Dynamic pressure and Reynolds/m arrays
+q_2D    = (1/2) * rho_2D .* (v_ms_2D.^2);   %Pa, or kg/(m.s^2) or 1 N/m^2
+
+
+% Calculate aero parameters over the h, v range
+CL_2D               = (MTOM*9.81) ./ (q_2D * Geometry.Swing);
+Cdi_2D              = Input_parameters.K_Cdi * ((CL_2D.^2)/(pi*Input_parameters.Oswald*Input_parameters.Oswald_margin*Geometry.AR)); %margined Cdi
+Cdtot_2D            = Cd0_2D + Cdi_2D;
+Di_2D               = Cdi_2D.*q_2D*Geometry.Swing; %Newtons
+D0_2D               = Cd0_2D.*q_2D*Geometry.Swing; %Newtons
+D_2D                = D0_2D + Di_2D;               %Newtons
+LD_2D               = CL_2D./ Cdtot_2D;
+CL32CD_2D           = (CL_2D.^(3/2))./ Cdtot_2D;
+
+%--------------------------------------------------------------------------
+%extract vectors for your specified cruise altitude:
+CL_vector           = CL_2D(h_cruise_index,:);
+Cdi_vector          = Cdi_2D(h_cruise_index,:);
+Cdtot_vector        = Cdtot_2D(h_cruise_index,:);
+Di_vector           = Di_2D(h_cruise_index,:);
+D0_vector           = D0_2D(h_cruise_index,:);
+D_vector            = D_2D(h_cruise_index,:);
+LD_vector           = LD_2D(h_cruise_index,:);
+CL32CD_vector       = CL32CD_2D(h_cruise_index,:);
+
+% find maximum values of aero parameters at the specified cruise altitude
+[LDmax, VbestLD_index]  = max(LD_vector);
+[CL32CDmax,CL32CD_index]= max(CL32CD_vector);
+VbestLD_ms              = v_vector_ms(VbestLD_index);
+VbestCL32CD_ms          = v_vector_ms(CL32CD_index);
+% VbestLD_kph             = v_vector_kph(VbestLD_index);
+% VbestCL32CD_kph         = v_vector_kph(CL32CD_index);
+CLbestLD                = CL_vector(VbestLD_index);
+Cdi_at_cruise           = (CLbestLD^2)/(pi*Input_parameters.Oswald*Geometry.AR);
+Cdtot                   = Cdtot_vector(VbestLD_index);                         
+%find stall speed
+Vstall_ms = sqrt((2*MTOM*9.81)/(rho_vector(h_cruise_index)*Geometry.Swing*Input_parameters.CL_max));
+Vstall_kph = Vstall_ms*3.6;
+LD_cruise = LDmax;
+%    if strcmp(plotOption,'plotOn')
+%     figure(2)
+%     plot(v_vector_kph,D0_vector,'-b','LineWidth',2)
+%     hold on
+%     plot(v_vector_kph,Di_vector, '-g','LineWidth',2)
+%     xlabel('Airspeed in km/h')
+%     ylabel('Di and D0')
+%     set(gcf,'Color',[1,1,1])
+%     legend('Parasite drag','Induced drag')
+%     hold off
+%     figure(3)
+%     plot(v_vector_kph,LD_vector,'-r','LineWidth',1)
+%     hold on
+%     plot(v_vector_kph,CL32CD_vector, '-g','LineWidth',1)
+%     title('L/D and CL^(3/2) /Cd vs. airspeed')
+%     xlabel('Airspeed in km/h')
+%     ylabel('L/D and CL^(3/2)')
+%     set(gcf,'Color',[1,1,1])
+%     legend('L/D','CL^(3/2) /Cd')
+%     hold off
+%    end
+
+% if strcmp(plotOption,'plotOn')
+%     % 1- Plot L/D and CL^3/2/Cd plots
+%     %figure(3)
+%     f=figure(3);
+%     ax3 = tabbedFigure(f,'L/D plots');
+%     plot(v_vector_kph,LD_vector,'-r','LineWidth',1)
+%     hold on
+%     plot(v_vector_kph,CL32CD_vector, '-g','LineWidth',1)
+%     %vline(Input_parameters.Vcruise_kmh,'k-')
+%     vline(VbestCL32CD_kph,'g-')
+%     vline(VbestLD_kph,'r-')
+% 
+%     title('L/D and CL^{3/2} /Cd vs. airspeed')
+%     xlabel('Airspeed in km/h')
+%     ylabel('L/D and CL^{3/2}')
+%     fig = gcf;
+%     fig.Color = [1 1 1];
+% %      set(gcf,'Color',[1,1,1])
+%     legend('L/D','CL^{3/2} /Cd')
+%     hold off
+%     
+%     % 2- Plot induced drag and parasite drag in lbf
+%     %figure(4)
+%     ax4 = tabbedFigure(f,'Drag vs speed');
+%     plot(v_vector_kph,D0_vector,'-b','LineWidth',2)
+%     hold on
+%     plot(v_vector_kph,Di_vector, '-g','LineWidth',2)
+%     %vline(Input_parameters.Vcruise_kmh,'k-')
+%     
+%     %plot stall speed
+%     vline(Vstall_kph,'r-')
+%     
+%     %to trim the axes, find Dinduced at Vstall and crop the y-axis a little
+%     %bit above it
+%     Di_stall = interp1(v_vector_kph,Di_vector,Vstall_kph);
+%     y_max = 1.1*Di_stall;
+%     axis([.6*Vstall_kph,max(v_vector_kph),0,y_max])
+%     
+%     title('Parasite and induced drag vs. airspeed')
+%     xlabel('Airspeed in km/h')
+%     ylabel('Di and D0')
+%     set(gcf,'Color',[1,1,1])
+%     legend('Parasite drag','Induced drag')
+%     hold off
+% end
+if flag==1
+    flag=1;
+end
+end
+
+

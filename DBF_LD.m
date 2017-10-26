@@ -46,7 +46,7 @@ VbestCL32CD_ms          = v_vector_ms(CL32CD_index);
 % VbestCL32CD_kph         = v_vector_kph(CL32CD_index);
 CLbestLD                = CL_vector(VbestLD_index);
 Cdi_at_cruise           = (CLbestLD^2)/(pi*Input_parameters.Oswald*Geometry.AR);
-
+Cdtot                   = Cdtot_vector(VbestLD_index);                         
 %find stall speed
 Vstall_ms = sqrt((2*MTOM*9.81)/(rho_vector(h_cruise_index)*Geometry.Swing*Input_parameters.CL_max));
 Vstall_kph = Vstall_ms*3.6;

@@ -49,7 +49,7 @@ Input_parameters.nmax                   = 2;
 % BATTERY STUFF 
 Input_parameters.Batt_Sp_E          = .07; %kWhr/kg %NiMH
 
-Input_parameters.depthOfDischarge   = .8; 
+Input_parameters.depthOfDischarge   = .65; 
 
 %--------------------------------------------------
 Input_parameters.Batt_overhead = 0;
