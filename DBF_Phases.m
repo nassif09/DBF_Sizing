@@ -38,7 +38,6 @@ function [Energy_required,output_data]   = DBF_Phases(Input_parameters,CLbestLD,
     P_max_turn = (T_max_turn*V_turn);
 
     wmax = g*sqrt(rho*CLbestLD*Input_parameters.nmax/(2*W_S));
-    >>>>>>> 06db69ab245253d05e56e6544723a71fa386d9c6
 
     %     t_turn1 = pi/wmax;
     %     t_turn2 = pi/wmax;
