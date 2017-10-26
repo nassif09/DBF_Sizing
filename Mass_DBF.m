@@ -10,7 +10,7 @@ Mass.MTOM = MTOM;   %kg
 % Mass.EW_fract      = .65; %assumption
 % Mass.EW_fract      = .70; %assumption
 
-MassFrac0 = 1.5/MTOM;
+MassFrac0 = 1/MTOM;
 Mass.payload       = 10*0.0283495;      %oz to kg
 
 Mass.EW_fract      = MassFrac0- .1 + .2*(Geometry.W_S/130); %assumption
