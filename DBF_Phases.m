@@ -65,7 +65,7 @@ function [Energy_required,output_data]   = DBF_Phases(Input_parameters,CLbestLD,
     TotalTime = 10*60; %seconds
 
     Input_parameters.LapTime = 4*pi*R_turn/V_max_turn + 609.6/VbestLD_ms;
-    Input_parameters.NumLaps = round((TotalTime-T_takeoff)/LapTime-.5);;
+    Input_parameters.NumLaps = round((TotalTime-T_takeoff)/Input_parameters.LapTime-.5);;
 
 
     %% Climb
